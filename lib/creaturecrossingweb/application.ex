@@ -1,0 +1,35 @@
+defmodule Creaturecrossingweb.Application do
+  # See https://hexdocs.pm/elixir/Application.html
+  # for more information on OTP Applications
+  @moduledoc false
+
+  use Application
+
+  @impl true
+  def start(_type, _args) do
+    children = [
+      CreaturecrossingwebWeb.Telemetry,
+      {DNSCluster, query: Application.get_env(:creaturecrossingweb, :dns_cluster_query) || :ignore},
+      {Phoenix.PubSub, name: Creaturecrossingweb.PubSub},
+      # Start the Finch HTTP client for sending emails
+      {Finch, name: Creaturecrossingweb.Finch},
+      # Start a worker by calling: Creaturecrossingweb.Worker.start_link(arg)
+      # {Creaturecrossingweb.Worker, arg},
+      # Start to serve requests, typically the last entry
+      CreaturecrossingwebWeb.Endpoint
+    ]
+
+    # See https://hexdocs.pm/elixir/Supervisor.html
+    # for other strategies and supported options
+    opts = [strategy: :one_for_one, name: Creaturecrossingweb.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+
+  # Tell Phoenix to update the endpoint configuration
+  # whenever the application is updated.
+  @impl true
+  def config_change(changed, _new, removed) do
+    CreaturecrossingwebWeb.Endpoint.config_change(changed, removed)
+    :ok
+  end
+end
