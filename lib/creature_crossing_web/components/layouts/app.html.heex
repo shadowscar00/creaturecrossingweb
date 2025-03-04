@@ -1,0 +1,28 @@
+<header class="px-4 sm:px-6 lg:px-8 bg-orange-100">
+  <div class="flex items-center border-b border-zinc-100 py-3">
+    <div class="flex items-center gap-4">
+      <a href="/">
+        <img src={~p"/images/critter_crossing_logo.png"} width="100" />
+      </a>
+    </div>
+    <div class="flex items-center gap-4 font-semibold leading-6 text-7xl text-green-800">
+      <h1>Creature Crossing</h1>
+    </div>
+  </div>
+</header>
+<main class="px-4 py-20 sm:px-6 lg:px-8 bg-amber-50 flex flex-col min-h-screen">
+  <div>
+    <.flash_group flash={@flash} />
+    {@inner_content}
+  </div>
+</main>
+<footer class="px-4 sm:px-6 lg:px-8 bg-orange-100 mt-auto pt-4 pb-2">
+  <div>
+    <p>
+      <a href="https://github.com/shadowscar00" style="color:green; text-decoration:underline;"><img src={~p"/images/github-mark.png"} width="25" style="float:left; padding-right:5px;">Check me out on GitHub!</a>
+    </p>
+    <p>
+      Proudly running on Phoenix v{Application.spec(:phoenix, :vsn)}
+    </p>
+  </div>
+</footer>
